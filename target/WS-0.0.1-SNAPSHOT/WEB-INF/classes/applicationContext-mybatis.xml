@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+	<!-- 引入属性配置文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:config.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- DataSource druid 数据源 -->
+	<bean id="syjdDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+		<property name="url" value="${jdbc.url}" />
+	    <property name="username" value="${jdbc.username}" /> 
+		<property name="password" value="${jdbc.password}" /> 
+		<property name="driverClassName" value="${jdbc.driverClassName}" /> 
+		<property name="filters" value="${jdbc.filters}" /> 
+ 		<property name="maxActive" value="${jdbc.maxActive}" />
+ 		<property name="initialSize" value="${jdbc.initialSize}" /> 
+ 		<property name="maxWait" value="${jdbc.maxWait}" />
+ 		<property name="minIdle" value="${jdbc.minIdle}" />
+ 		<property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}" />
+ 		<property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}" />
+		<property name="validationQuery" value="${jdbc.validationQuery}" /> 
+ 		<property name="testWhileIdle" value="${jdbc.testWhileIdle}" /> 
+		<property name="testOnBorrow" value="${jdbc.testOnBorrow}" />
+     	<property name="testOnReturn" value="${jdbc.testOnReturn}" /> 
+		<property name="maxOpenPreparedStatements" value="${jdbc.maxOpenPreparedStatements}" /> 
+ 		<property name="removeAbandoned" value="${jdbc.removeAbandoned}" /> 
+		<property name="removeAbandonedTimeout" value="${jdbc.removeAbandonedTimeout}" /> 
+ 		<property name="logAbandoned" value="${jdbc.logAbandoned}" /> 
+	</bean>
+	
+	<!-- DataSource druid 数据源 -->
+	<bean id="erpDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+		<property name="url" value="${jdbc.erp.url}" />
+	    <property name="username" value="${jdbc.erp.username}" /> 
+		<property name="password" value="${jdbc.erp.password}" /> 
+		<property name="driverClassName" value="${jdbc.driverClassName}" /> 
+		<property name="filters" value="${jdbc.filters}" /> 
+ 		<property name="maxActive" value="${jdbc.maxActive}" />
+ 		<property name="initialSize" value="${jdbc.initialSize}" /> 
+ 		<property name="maxWait" value="${jdbc.maxWait}" />
+ 		<property name="minIdle" value="${jdbc.minIdle}" />
+ 		<property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}" />
+ 		<property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}" />
+		<property name="validationQuery" value="${jdbc.validationQuery}" /> 
+ 		<property name="testWhileIdle" value="${jdbc.testWhileIdle}" /> 
+		<property name="testOnBorrow" value="${jdbc.testOnBorrow}" />
+     	<property name="testOnReturn" value="${jdbc.testOnReturn}" /> 
+		<property name="maxOpenPreparedStatements" value="${jdbc.maxOpenPreparedStatements}" /> 
+ 		<property name="removeAbandoned" value="${jdbc.removeAbandoned}" /> 
+		<property name="removeAbandonedTimeout" value="${jdbc.removeAbandonedTimeout}" /> 
+ 		<property name="logAbandoned" value="${jdbc.logAbandoned}" /> 
+	</bean>
+
+	<!-- DataSource druid mysql数据源 -->
+	<bean id="twDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+		<property name="url" value="${mysql.url}" />
+		<property name="username" value="${mysql.username}" />
+		<property name="password" value="${mysql.password}" />
+		<property name="driverClassName" value="${mysql.driverClassName}" />
+		<property name="filters" value="${jdbc.filters}" />
+		<property name="maxActive" value="${jdbc.maxActive}" />
+		<property name="initialSize" value="${jdbc.initialSize}" />
+		<property name="maxWait" value="${jdbc.maxWait}" />
+		<property name="minIdle" value="${jdbc.minIdle}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}" />
+		<property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}" />
+		<property name="validationQuery" value="${jdbc.validationQuery}" />
+		<property name="testWhileIdle" value="${jdbc.testWhileIdle}" />
+		<property name="testOnBorrow" value="${jdbc.testOnBorrow}" />
+		<property name="testOnReturn" value="${jdbc.testOnReturn}" />
+		<property name="maxOpenPreparedStatements" value="${jdbc.maxOpenPreparedStatements}" />
+		<property name="removeAbandoned" value="${jdbc.removeAbandoned}" />
+		<property name="removeAbandonedTimeout" value="${jdbc.removeAbandonedTimeout}" />
+		<property name="logAbandoned" value="${jdbc.logAbandoned}" />
+	</bean>
+	
+	<!-- 配置多数据源映射关系 -->
+    <bean id="dataSource" class="framework.mybatis.DynamicDataSource">
+        <property name="targetDataSources">
+            <map key-type="java.lang.String">
+        	<entry key="syjdDataSource" value-ref="syjdDataSource"></entry>
+            <entry key="erpDataSource" value-ref="erpDataSource"></entry>
+			<entry key="twDataSource" value-ref="twDataSource"></entry>
+            </map>
+        </property>
+    	<!-- 默认目标数据源为你主库数据源 -->
+        <property name="defaultTargetDataSource" ref="syjdDataSource"/>
+    </bean>
+
+	<bean id="dataSourceExchange" class="framework.mybatis.DataSourceExchange"/>
+	<!-- JDBC DataSource end -->
+	
+	<!-- 定义MyBatis Session Factory -->
+	<!-- MyBatis的SQLMapper文件必须在mapper包下 -->
+	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:myBatisConfig.xml" />
+		<property name="mapperLocations">
+			<list>  
+	            <value>classpath:application/**/mapper/*.xml</value>  
+	            <value>classpath:framework/**/mapper/*.xml</value>  
+	        </list>
+		</property>
+	</bean>
+	
+	<!-- 定义事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	  <property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 定义事务切点及通知，事务控制在service层 -->
+	<aop:config>
+		<aop:pointcut id="pointcut" expression="execution(* *..service.*Service.*(..))" /> 
+		<aop:advisor pointcut-ref="pointcut" advice-ref="txAdvice" order="2"/>
+		<aop:advisor pointcut-ref="pointcut" advice-ref="dataSourceExchange" order="1" />
+	</aop:config>
+	
+	<!-- 定义事务通知、传播属性 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="list*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="count*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="query*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="select*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="add*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="edit*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="save*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="remove*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="approve*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="operate*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="pause*" propagation="REQUIRED" rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 引入Spring集成的 SqlSessionTemplate -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sessionFactory" />
+	</bean>
+	<!-- <mvc:cors>
+        <mvc:mapping path="/**" allowed-origins="http://localhost:8100,http://10.11.103.46:4200" allow-credentials="true" max-age="1800" allowed-methods="GET,POST,OPTIONS" />
+    </mvc:cors> -->
+    <mvc:cors>
+    	<mvc:mapping path="/**" />
+	</mvc:cors>
+	
+</beans>

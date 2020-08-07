@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="framework.dev.mybatis.mapper.MyBatisMapper">
+	
+	<!-- 获取数据库表信息 -->
+	<select id="getTableList" parameterType="MyBatisVO" resultType="MyBatisVO">
+		select t.table_name tableName, 
+			   c.comments   tableComments
+		  from dba_tables t, dba_tab_comments c
+		 where t.owner = c.owner
+		   and t.table_name = c.table_name
+		   and t.owner = #{owner}
+		   and c.table_type = 'TABLE'
+		   
+		<if test="tableName != null and tableName != ''">
+		   and t.table_name like '%${tableName}%'
+		</if>
+		
+		 order by t.table_name
+	</select>
+	
+	<!-- 获取表字段信息 -->
+	<select id="getColumnList" parameterType="MyBatisVO" resultType="MyBatisVO">
+		select lower(dtc.column_name) columnName,
+		       lower(dtc.data_type) dataType
+		  from dba_tab_columns dtc
+		 where dtc.owner = #{owner}
+		   and dtc.table_name = #{tableName}
+	</select>
+	
+	<!-- 获取表唯一索引信息 -->
+	<select id="getPKColumnList" parameterType="MyBatisVO" resultType="String">
+    	select distinct lower(uic.column_name) column_name
+		  from dba_indexes ui, dba_ind_columns uic
+		 where ui.index_name = uic.INDEX_NAME
+           and ui.table_owner = #{owner}
+           and ui.uniqueness = 'UNIQUE'
+           and ui.table_name = #{tableName}
+         order by column_name
+	</select>
+	
+</mapper>

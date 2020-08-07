@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="application.ApiWs.mapper.ApiWsMapper">
+    <select id="getUserVerifiedCnt" parameterType="application.ApiWs.vo.UserLoginRequestVo" resultType="int">
+        select count(1)
+        from MEMBER mem
+        where 1 = 1
+        and mem.MEMBER_SOURCE = 'PCMALL'
+        and (mem.USERNAME = #{loginUsername}
+          or mem.MOBILE = #{loginUsername}
+          or mem.PHONE = #{loginUsername})
+        and mem.ENCODEDPASSWORD = #{encodedPassword}
+    </select>
+
+    <select id="getUserLoginInfo" parameterType="application.ApiWs.vo.UserLoginRequestVo" resultType="application.ApiWs.vo.UserLoginResponseVo">
+        select mem.ID userId,
+          mem.NAME userName,
+          mem.USER_TYPE userType
+        from MEMBER mem
+        where 1 = 1
+        and mem.MEMBER_SOURCE = 'PCMALL'
+        and (mem.USERNAME = #{loginUsername}
+          or mem.MOBILE = #{loginUsername}
+          or mem.PHONE = #{loginUsername})
+        and mem.ENCODEDPASSWORD = #{encodedPassword}
+    </select>
+
+    <select id="getUserLoginStoreInfoList" parameterType="java.lang.String" resultType="application.ApiWs.vo.StoreVo">
+        select cas.ID storeId,
+          cas.STORE_NAME storeName,
+          cas.STORE_MANAGER_ID storeManagerId
+        from CUX_APP_STORE_T cas
+        where 1 = 1
+        and cas.STORE_SALESMAN_ID = #{userId}
+    </select>
+
+    <select id="getUserLoginStoreInfoListForManager" parameterType="java.lang.String" resultType="application.ApiWs.vo.StoreVo">
+        select cas.ID storeId,
+          cas.STORE_NAME storeName,
+          cas.STORE_MANAGER_ID storeManagerId
+        from CUX_APP_STORE_T cas
+        where 1 = 1
+        and cas.STORE_MANAGER_ID = #{userId}
+    </select>
+
+    <select id="getUserInfoByMobile" parameterType="java.lang.String" resultType="application.ApiWs.vo.UserVo">
+        select mem.ENCODEDPASSWORD encodedPassword
+        from MEMBER mem
+        where 1 = 1
+        and mem.MEMBER_SOURCE = 'PCMALL'
+        and mem.MOBILE = #{mobile}
+    </select>
+
+    <update id="getUserPasswordReset" parameterType="java.lang.String">
+        update MEMBER mem
+        set mem.ENCODEDPASSWORD = #{newEncodedPassword}
+        where mem.MEMBER_SOURCE = 'PCMALL'
+        and mem.MOBILE = #{userName}
+    </update>
+
+    <select id="getItemListCount" parameterType="application.ApiWs.vo.ItemListRequestVo" resultType="int">
+        select count(1)
+        from PRODUCT prd
+        where 1 = 1
+        <if test="itemId != null and itemId != ''">
+            and prd.ID = #{itemId}
+        </if>
+        <if test="itemName != null and itemName != ''">
+            and prd.NAME like '%${itemName}%'
+        </if>
+    </select>
+
+    <select id="getItemList" parameterType="application.ApiWs.vo.ItemListRequestVo" resultType="application.ApiWs.vo.ItemVo">
+        select res.itemId,
+            res.itemName,
+            res.itemPrice
+        from (select src.*,
+            rownum rn
+            from (select prd.ID itemId,
+                prd.NAME itemName,
+                prd.PRICE itemPrice
+                from PRODUCT prd
+                <where>
+                    1 = 1
+                    <if test="itemId != null and itemId != ''">
+                        and prd.ID = #{itemId}
+                    </if>
+                    <if test="itemName != null and itemName != ''">
+                        and prd.NAME like '%${itemName}%'
+                    </if>
+                </where>
+                <choose>
+                    <when test="sortType != null">
+                        <if test="sortType == 2" >
+                            order by prd.CREATEDDATE desc
+                        </if>
+                        <if test="sortType == 3" >
+                            order by prd.PRICE desc
+                        </if>
+                    </when>
+                    <otherwise>
+                        order by prd.ID desc
+                    </otherwise>
+                </choose>) src
+            where rownum &lt;= ${pageSize} * ${pageNo}) res
+        where res.rn > ${pageSize} * (${pageNo} - 1)
+    </select>
+
+    <select id="getHotItemList" resultType="application.ApiWs.vo.HotItemVo">
+        select res.itemId,
+            res.itemName,
+            res.itemPrice,
+            res.itemOriPrice,
+            res.itemSaleQuantity,
+            res.itemPic
+        from (select prd.ID itemId,
+                prd.NAME itemName,
+                caht.OLD_PRICE itemOriPrice,
+                caht.NEW_PRICE itemPrice,
+                sum(oi.QUANTITY) itemSaleQuantity,
+                cai.ITEM_THUMBNAIL itemPic
+            from PRODUCT prd,ORDERITEM oi,CUX_APP_HOT_ITEM_T caht,CUX_APP_ITEM_ATTRIBUTE_T cai
+            where 1 = 1
+            and prd.SN = oi.SN
+            and prd.SN = caht.ITEM_SN
+            and prd.SN = cai.ITEM_SN(+)
+            group by prd.ID,prd.NAME,caht.NEW_PRICE,caht.OLD_PRICE,cai.ITEM_THUMBNAIL
+            order by sum(oi.QUANTITY) desc) res
+        <![CDATA[where rownum < 11]]>
+    </select>
+
+    <select id="getSpecialItemList" resultType="application.ApiWs.vo.SpecialItemVo">
+        select res.itemId,
+            res.itemName,
+            res.itemPriceNow,
+            res.itemPrice,
+            res.itemPic
+        from (select src.*,
+                    rownum rn
+              from (select prd.ID itemId,
+                        prd.NAME itemName,
+                        ct.NEW_PRICE itemPriceNow,
+                        ct.OLD_PRICE itemPrice,
+                        cai.ITEM_THUMBNAIL  itemPic
+                    from PRODUCT prd,CUX_APP_SPECIAL_ITEM_T ct,CUX_APP_ITEM_ATTRIBUTE_T cai
+                    where 1 = 1
+                    and prd.SN = ct.ITEM_SN
+                    and prd.SN = cai.ITEM_SN
+                    and ct.STATUS = 'Y') src
+                    where rownum &lt;= ${pageSize} * ${pageNo}) res
+        where res.rn > ${pageSize} * (${pageNo} - 1)
+    </select>
+
+    <select id="getPromotionItemList" resultType="application.ApiWs.vo.PromotionItemVo" parameterType="application.ApiWs.vo.PromotionItemRequestVo">
+        select res.itemId,
+            res.itemName,
+            res.itemPriceNow,
+            res.itemPrice,
+            res.itemPic
+        from (select rownum  rn,
+                    src.*
+              from (select prd.ID itemId,
+                        prd.NAME itemName,
+                        ct.NEW_PRICE itemPriceNow,
+                        ct.OLD_PRICE itemPrice,
+                        cai.ITEM_THUMBNAIL  itemPic
+                   from PRODUCT prd,CUX_APP_PROMOTION_ITEM_T ct,CUX_APP_ITEM_ATTRIBUTE_T cai
+                   where 1 = 1
+                   and prd.SN = ct.ITEM_SN
+                   and prd.SN = cai.ITEM_SN) src
+              where rownum &lt;= ${pageSize} * ${pageNo}) res
+        where res.rn > ${pageSize} * (${pageNo} - 1)
+    </select>
+
+    <select id="getItemTypeList" resultType="application.ApiWs.vo.ItemTypeListResponseVo">
+        select FND_UTIL.GET_LOOKUP_MEANING('ITEM_TYPE',res.itemTypeCode) itemTypeName,
+          res.itemTypeCode itemTypeCode
+        from (select distinct(ITEM_TYPE) itemTypeCode
+            from PRODUCT
+            order by ITEM_TYPE asc) res
+    </select>
+
+    <select id="getItemDetail" parameterType="application.ApiWs.vo.ItemDetailRequestVo" resultType="application.ApiWs.vo.ItemVo">
+        select prd.ID itemId,
+            prd.NAME itemName,
+            prd.PRICE itemPrice,
+            '200g' itemSpec,
+            '7天' itemShelfLife,
+            '2-6摄氏度冷藏' storageCondition,
+            'Y' isBackBottle,
+            cat.ITEM_PICTURE itemPic,
+            cat.ITEM_DETAIL_PIC itemDetailPic
+        from PRODUCT prd,CUX_APP_ITEM_ATTRIBUTE_T cat
+        where 1 = 1
+        and prd.ID = cat.ITEM_ID(+)
+        <if test="itemId != null and itemId != ''">
+            and prd.ID = #{itemId}
+        </if>
+        <if test="itemName != null and itemName != ''">
+            and prd.NAME = #{itemName}
+        </if>
+    </select>
+
+    <select id="getShippingCartListCount" parameterType="application.ApiWs.vo.ShoppingCartListRequestVo" resultType="int">
+        select count(1)
+        from CUX_APP_SHOPPING_CART_NEW_T casct
+        where 1 = 1
+        and casct.STORE_ID = #{storeId}
+    </select>
+
+    <select id="getShippingCartList" parameterType="application.ApiWs.vo.ShoppingCartListRequestVo" resultType="application.ApiWs.vo.ShoppingCartVo">
+        select res.shoppingCartId,
+            res.createdDate,
+            res.lastModifiedDate,
+            res.createdBy,
+            res.lastmodifiedBy,
+            res.storeId,
+            res.itemId,
+            res.itemName,
+            res.itemPrice,
+            res.itemSn,
+            res.itemQuantity,
+            res.itemPic
+        from (select src.*,
+            rownum  rn
+            from (select casct.ID shoppingCartId,
+                to_char(casct.CREATEDDATE,'yyyy-MM-dd') createdDate,
+                to_char(casct.LASTMODIFIEDDATE,'yyyy-MM-dd') lastModifiedDate,
+                casct.STORE_ID storeId,
+                casct.CREATEDBY createdBy,
+                casct.LASTMODIFIEDBY lastmodifiedBy,
+                casct.ITEM_ID itemId,
+                casct.ITEM_SN itemSn,
+                casct.ITEM_QUANTITY itemQuantity,
+                cai.ITEM_NAME itemName,
+                cai.PRICE_NOW itemPrice,
+                cai.ITEM_THUMBNAIL  itemPic
+                from CUX_APP_SHOPPING_CART_NEW_T casct,CUX_APP_ITEM_ATTRIBUTE_T cai
+                where 1 = 1
+                and casct.ITEM_ID = cai.ITEM_ID
+                --and casct.ITEM_SN = cai.ITEM_SN
+                <if test="storeId != null and storeId != ''">
+                    and casct.STORE_ID = #{storeId}
+                </if>) src
+            where rownum &lt;= ${pageSize} * ${pageNo}) res
+        where res.rn > ${pageSize} * (${pageNo} - 1)
+    </select>
+
+    <select id="getShippingCartItemList" parameterType="java.lang.String" resultType="application.ApiWs.vo.ShoppingCartItemVo">
+        select cascit.ID shoppingItemId,
+          to_char(cascit.CREATEDDATE,'yyyy-MM-dd') createdDate,
+          to_char(cascit.LASTMODIFIEDDATE,'yyyy-MM-dd') lastModifiedDate,
+          cascit.CREATEDBY createdBy,
+          cascit.LASTMODIFIEDBY lastmodifiedby,
+          cascit.SHOPPING_CART_ID shoppingCartId,
+          cascit.ITEM_ID itemId,
+          cascit.ITEM_SN itemSn,
+          cascit.ITEM_QUANTITY itemQuantity,
+          prd.PRICE itemPrice,
+          prd.NAME itemName
+        from CUX_APP_SHOPPING_CART_ITEM_T cascit,PRODUCT prd
+        where 1 = 1
+        and cascit.ITEM_ID = prd.ID
+        --and cascit.ITEM_SN = prd.SN
+        and cascit.SHOPPING_CART_ID = #{shippingCartId}
+    </select>
+
+    <select id="getShippingCartItemExist" parameterType="java.lang.String" resultType="int">
+        select count(1)
+        from CUX_APP_SHOPPING_CART_ITEM_T cascit
+        where 1 = 1
+        and cascit.ID = #{shoppingCartItemId}
+    </select>
+
+    <update id="getShoppingCartItemModified" parameterType="application.ApiWs.vo.ShoppingCartItemVo">
+        update CUX_APP_SHOPPING_CART_ITEM_T cascit
+        set cascit.LASTMODIFIEDDATE = sysdate,
+            cascit.LASTMODIFIEDBY = #{lastModifiedBy},
+            cascit.ITEM_QUANTITY = #{itemQuantity}
+        where cascit.ID = #{shoppingItemId}
+    </update>
+
+    <insert id="getShoppingCartItemInsert" parameterType="application.ApiWs.vo.ShoppingCartItemVo">
+        insert into CUX_APP_SHOPPING_CART_ITEM_T(ID, CREATEDDATE, LASTMODIFIEDDATE, CREATEDBY, LASTMODIFIEDBY, SHOPPING_CART_ID, ITEM_ID, ITEM_SN, ITEM_QUANTITY, ITEM_PRICE)
+        values (GET_PRIMARY_ID('CUX_APP_SHOPPING_CART_ITEM_T'),sysdate,sysdate,#{createdBy},#{createdBy},#{shoppingCartId},#{itemId},#{itemSn},#{itemQuantity},#{itemPrice})
+    </insert>
+
+    <select id="getShoppingCartById" parameterType="java.lang.String" resultType="application.ApiWs.vo.ShoppingCartVo">
+        select casct.ID shoppingCartId,
+            to_char(casct.CREATEDDATE,'yyyy-MM-dd') createdDate,
+            to_char(casct.LASTMODIFIEDDATE,'yyyy-MM-dd') lastModifiedDate,
+            casct.STORE_ID storeId,
+            casct.CREATEDBY createdBy,
+            casct.LASTMODIFIEDBY lastmodifiedBy,
+            casct.ITEM_ID itemId,
+            casct.ITEM_SN itemSn,
+            cai.ITEM_NAME itemName,
+            cai.PRICE_NOW itemPrice
+        from CUX_APP_SHOPPING_CART_NEW_T casct,CUX_APP_ITEM_ATTRIBUTE_T cai
+        where 1 = 1
+        and casct.ITEM_ID = cai.ITEM_ID
+        and casct.ID = #{shoppingCartId}
+    </select>
+
+    <insert id="getShoppingCartInsert" parameterType="application.ApiWs.vo.ShoppingCartAddRequestVo">
+        <selectKey resultType="java.lang.String" keyProperty="shoppingCartId" order="BEFORE">
+            select GET_PRIMARY_ID('CUX_APP_SHOPPING_CART_NEW_T') from dual
+        </selectKey>
+        insert into CUX_APP_SHOPPING_CART_NEW_T(ID, CREATEDDATE, LASTMODIFIEDDATE, CREATEDBY, LASTMODIFIEDBY, STORE_ID, ITEM_ID,ITEM_QUANTITY)
+        values (#{shoppingCartId},sysdate,sysdate,#{userId},#{userId},#{storeId},#{itemId},#{itemQuantity})
+    </insert>
+
+    <select id="getUserInfo" parameterType="application.ApiWs.vo.UserInfoRequestVo" resultType="application.ApiWs.vo.UserInfoResponseVo">
+        select mem.ID userId,
+            mem.NAME userName,
+            mem.USER_TYPE userType,
+            mem.PHONE userPhone,
+            0 userWalletAmount,
+            re.POITITLE || re.ADDRESS userAddress,
+            re.MILK_STATION_ID shippingMilkStationId,
+            ms.MILK_STATION_NAME shippingMilkStationName,
+            '(010)5630 6166' servicePhone
+        from MEMBER mem,RECEIVER re,MILK_STATION ms
+        where 1 = 1
+        and mem.ID = re.MEMBER_ID(+)
+        and re.MILK_STATION_ID = ms.ID(+)
+        and mem.MEMBER_SOURCE = 'PCMALL'
+        and mem.ID = #{userId}
+    </select>
+
+    <select id="getShoppingCartConfirm" parameterType="java.util.Map" statementType="CALLABLE">
+        {call CUX_PCMALL_PKG.GET_SHOPPING_CART_CONFIRM_NEW(#{batchId,jdbcType=VARCHAR,mode=IN},
+          #{userId,jdbcType=VARCHAR,mode=IN},
+          #{shoppingDate,jdbcType=VARCHAR,mode=IN},
+          #{orderId,jdbcType=VARCHAR,mode=OUT},
+          #{flag,jdbcType=VARCHAR,mode=OUT},
+          #{msg,jdbcType=VARCHAR,mode=OUT})}
+    </select>
+
+    <select id="getOrderById" parameterType="java.lang.String" resultType="application.ApiWs.vo.OrderVo">
+        select os.ID orderId,
+            to_char(oi.ORDER_DATE_FROM,'yyyy-MM-dd') shoppingDate,
+            os.STATUS orderStatus,
+            cas.ID storeId
+        from ORDERS os,ORDERITEM oi,CUX_APP_STORE_T cas
+        where 1 = 1
+        and os.ID = oi.ORDERS(+)
+        and os.ORDER_FROM = 'PCMALL'
+        and os.MEMBER_ID = cas.STORE_MANAGER_ID
+        and os.ID = #{orderId}
+        <![CDATA[and rownum < 2]]>
+    </select>
+
+    <select id="getOrderItemListByOrders" parameterType="java.lang.String" resultType="application.ApiWs.vo.OrderItemVo">
+        select oi.ID orderItemId,
+            prd.ID itemId,
+            oi.SN itemSn,
+            oi.QUANTITY itemQuantity,
+            oi.PRICE itemPrice,
+            cai.ITEM_NAME itemName,
+            cai.ITEM_THUMBNAIL itemPic
+        from ORDERITEM oi,PRODUCT prd,CUX_APP_ITEM_ATTRIBUTE_T cai
+        where 1 = 1
+        and oi.SN = prd.SN
+        and prd.ID = cai.ITEM_ID(+)
+        and oi.ORDERS = #{orders}
+    </select>
+
+    <select id="getOrderListCount" parameterType="application.ApiWs.vo.OrderListRequestVo" resultType="int">
+        select count(1)
+        from ORDERS os,CUX_APP_STORE_T cas,ORDERITEM oi
+        where 1 = 1
+        and os.MEMBER_ID = cas.STORE_MANAGER_ID
+        and os.ID = oi.ORDERS
+        and os.ORDER_FROM = 'PCMALL'
+        <if test="orderId != null and orderId != ''">
+            and os.ID = #{orderId}
+        </if>
+        <if test="storeId != null and storeId != ''">
+            and cas.ID = #{storeId}
+        </if>
+        <if test="orderStatus != null and orderStatus != ''">
+            and os.STATUS = #{orderStatus}
+        </if>
+        <if test="shoppingDate != null and shoppingDate != ''">
+            and oi.ORDER_DATE_FROM = to_date(#{shoppingDate},'yyyy-MM-dd')
+        </if>
+    </select>
+
+    <select id="getOrderList" parameterType="application.ApiWs.vo.OrderListRequestVo" resultType="application.ApiWs.vo.OrderVo">
+        select res.orderId,
+            res.shoppingDate,
+            res.orderStatus,
+            res.orderAmount,
+            res.orderAddress,
+            res.orderConsignee,
+            res.orderPhone
+        from (
+            select src.*,
+            rownum rn
+            from (
+                select os.ID orderId,
+                to_char(oi.ORDER_DATE_FROM,'yyyy-MM-dd') shoppingDate,
+                os.STATUS orderStatus,
+                os.AMOUNT orderAmount,
+                os.CONSIGNEE orderConsignee,
+                os.PHONE orderPhone,
+                os.ADDRESS orderAddress
+                from ORDERS os,CUX_APP_STORE_T cas,ORDERITEM oi
+                where 1 = 1
+                and os.MEMBER_ID = cas.STORE_MANAGER_ID
+                and os.ID = oi.ORDERS
+                and os.ORDER_FROM = 'PCMALL'
+                <if test="orderId != null and orderId != ''">
+                    and os.ID = #{orderId}
+                </if>
+                <if test="storeId != null and storeId != ''">
+                    and cas.ID = #{storeId}
+                </if>
+                <if test="orderStatus != null and orderStatus != ''">
+                    and os.STATUS = #{orderStatus}
+                </if>
+                <if test="shoppingDate != null and shoppingDate != ''">
+                    and oi.ORDER_DATE_FROM = to_date(#{shoppingDate},'yyyy-MM-dd')
+                </if>
+                ) src
+            where rownum &lt;= ${pageSize} * ${pageNo}
+        ) res
+        where res.rn > ${pageSize} * (${pageNo} - 1)
+    </select>
+
+    <select id="getWalletLogList" parameterType="application.ApiWs.vo.WalletLogRequestVo" resultType="application.ApiWs.vo.WalletLogVo">
+        select res.BALANCE,
+            res.CREDIT,
+            res.DEBIT,
+            res.MEMO,
+            res.createdDate
+        from (select src.*,
+                rownum  rn
+            from (select cw.BALANCE,
+                    cw.CREDIT,
+                    cw.DEBIT,
+                    cw.MEMO,
+                    to_char(cw.CREATEDDATE,'yyyy-MM-dd hh24:mi:ss') createdDate
+                from CUX_WALLET_LOG_T cw
+                where 1 = 1
+                and cw.USER_ID = #{userId}
+                and cw.CREATEDDATE >= to_date(#{startDate},'yyyy-MM-dd')
+                <![CDATA[and cw.CREATEDDATE <= to_date(#{endDate},'yyyy-MM-dd')]]>) src
+            where rownum &lt;= ${pageSize} * ${pageNo}) res
+        where res.rn > ${pageSize} * (${pageNo} - 1)
+    </select>
+
+    <select id="getPushMessageList" parameterType="application.ApiWs.vo.PushMessageListRequestVo" resultType="application.ApiWs.vo.PushMessageVo">
+        select res.messageContent,
+            res.messageId,
+            res.creationDate,
+            res.messageTitle,
+            res.readFlag,
+            res.createdBy
+        from (select src.*,
+              rownum rn
+            from (select pn.MESSAGE messageContent,
+                        pn.ID messageId,
+                        to_char(pn.CREATEDDATE,'yyyy-MM-dd') creationDate,
+                        pn.TITLE messageTitle,
+                        decode((select count(1) from CUX_PUSH_MESSAGE_T cpt where cpt.USER_ID = #{userId} and cpt.MESSAGE_ID = pn.ID),0,'N','Y') readFlag,
+                        fu.LOGIN_USERNAME createdBy
+                    from PUSH_NOTIFICATION pn,FND_USERS fu
+                    where 1 = 1
+                    and pn.PLATFORM = 'APPSTORE'
+                    and pn.CREATED_BY = fu.USER_ID(+)
+                    order by pn.CREATEDDATE desc) src
+            where rownum &lt;= ${pageSize} * ${pageNo}) res
+        where res.rn > ${pageSize} * (${pageNo} - 1)
+    </select>
+
+    <select id="getPushMessageDetail" parameterType="java.lang.String" resultType="application.ApiWs.vo.PushMessageVo">
+        select pn.MESSAGE messageContent,
+            pn.ID messageId,
+            to_char(pn.CREATEDDATE,'yyyy-MM-dd') creationDate,
+            pn.TITLE messageTitle,
+            'Y' readFlag,
+            fu.LOGIN_USERNAME createdBy
+        from PUSH_NOTIFICATION pn,FND_USERS fu
+        where 1 = 1
+        and pn.PLATFORM = 'APPSTORE'
+        and pn.CREATED_BY = fu.USER_ID(+)
+        and pn.ID = #{messageId}
+    </select>
+
+    <insert id="getPushMessageReaded" parameterType="application.ApiWs.vo.PushMessageDetailRequestVo">
+        insert into CUX_PUSH_MESSAGE_T(ID, MESSAGE_ID, USER_ID, READ_FLAG)
+        values (GET_PRIMARY_ID('CUX_PUSH_MESSAGE_T'),#{messageId},#{userId},'')
+    </insert>
+
+    <select id="getHotSearchList" resultType="application.ApiWs.vo.HotSearchVo">
+        select hat.SEARCH_CONTENT searchContent,
+          hat.SEARCH_COUNT searchCount
+        from CUX_APP_HOT_SEARCH_T hat
+        where 1 = 1
+        and hat.STATUS = 'Y'
+        <![CDATA[and rownum <= 10]]>
+        order by hat.SEARCH_COUNT desc
+    </select>
+
+    <select id="getHotSearchCnt" parameterType="java.lang.String" resultType="int">
+        select count(1)
+        from CUX_APP_HOT_SEARCH_T hat
+        where 1 = 1
+        and hat.STATUS = 'Y'
+        and hat.SEARCH_CONTENT = #{content}
+    </select>
+
+    <insert id="getHotSearchInsert" parameterType="java.lang.String">
+        insert into CUX_APP_HOT_SEARCH_T(ID, SEARCH_CONTENT, SEARCH_COUNT, STATUS)
+        values (GET_PRIMARY_ID('CUX_APP_HOT_SEARCH_T'),#{content},1,'Y')
+    </insert>
+
+    <update id="getHotSearchUpdate" parameterType="java.lang.String">
+        update CUX_APP_HOT_SEARCH_T hat
+        set hat.SEARCH_COUNT = hat.SEARCH_COUNT + 1
+        where hat.SEARCH_CONTENT = #{content}
+    </update>
+
+    <update id="getOrderUpdate" parameterType="application.ApiWs.vo.OrderUpdateRequestVo">
+        update ORDERS os
+        set os.STATUS = 5,
+        os.LAST_UPDATED_BY = #{userId},
+        os.LASTMODIFIEDDATE = sysdate
+        where os.ID = #{orderId}
+    </update>
+
+    <select id="getUserRegistedFlag" parameterType="java.lang.String" resultType="int">
+        select count(1)
+        from MEMBER mem
+        where 1 = 1
+        and mem.MEMBER_SOURCE = 'PCMALL'
+        and (mem.PHONE = #{mobile} or mem.MOBILE = #{mobile})
+    </select>
+
+    <select id="getSpecialItemAdsList" resultType="application.ApiWs.vo.SpecialItemAdVo">
+        select casat.ID adId,
+            casat.THUMBNAIL,
+            casat.PICTURE adPic,
+            prd.ID itemId
+        from CUX_APP_SPECIAL_AD_T casat,PRODUCT prd
+        where 1 = 1
+        and casat.ITEM_SN = prd.SN
+        and casat.status = 'Y'
+    </select>
+
+    <select id="getItemListByType" parameterType="java.lang.String" resultType="application.ApiWs.vo.ItemTypeVo">
+        select prd.ID itemId,
+            nvl(cai.ITEM_NAME,prd.NAME) itemName,
+            nvl(cai.PRICE_NOW,nvl(cai.PRICE_ORI,prd.PRICE)) itemPriceNow,
+            nvl(cai.PRICE_ORI,prd.PRICE) itemPriceOri,
+            cai.ITEM_THUMBNAIL itemPic
+        from PRODUCT prd,CUX_APP_ITEM_ATTRIBUTE_T cai
+        where 1 = 1
+        and prd.SN = cai.ITEM_SN(+)
+        and prd.ITEM_TYPE = #{typeCode}
+    </select>
+
+    <select id="getItemSaleQuantityById" parameterType="java.lang.String" resultType="int">
+        select nvl(sum(nvl(oi.QUANTITY,0)),0)
+        from ORDERITEM oi,PRODUCT prd,ORDERS os
+        where 1 = 1
+        and os.ID = oi.ORDERS
+        and oi.SN(+) = prd.SN
+        and os.ORDER_FROM = 'PCMALL'
+        and prd.ID = #{itemId}
+    </select>
+
+    <select id="getItemPromotionListByItemId" parameterType="java.lang.String" resultType="application.ApiWs.vo.ItemPromotionVo">
+        select cap.PROMOTION_NAME promotionName,
+            cap.DISCOUNT,
+            cap.CONDITION,
+            cap.ITEM_ID itemId,
+            cap.ID promotionId
+        from CUX_APP_PROMOTION_T cap
+        where 1 = 1
+        and cap.ITEM_ID = #{itemId}
+    </select>
+
+    <select id="getPromotionItemListCount" resultType="int">
+        select count(1)
+        from CUX_APP_PROMOTION_ITEM_T
+    </select>
+
+    <select id="getSpecialItemListCount" resultType="int">
+        select count(1)
+        from CUX_APP_SPECIAL_ITEM_T
+    </select>
+
+    <select id="getPushMessageCount" resultType="int">
+        select count(1)
+        from PUSH_NOTIFICATION pn
+        where 1 = 1
+        and pn.PLATFORM = 'APPSTORE'
+    </select>
+
+    <select id="getWalletLogCount" parameterType="application.ApiWs.vo.WalletLogRequestVo" resultType="int">
+        select count(1)
+        from CUX_WALLET_LOG_T cw
+        where 1 = 1
+        and cw.USER_ID = #{userId}
+        and cw.CREATEDDATE >= to_date(#{startDate},'yyyy-MM-dd')
+        <![CDATA[and cw.CREATEDDATE <= to_date(#{endDate},'yyyy-MM-dd')]]>
+    </select>
+
+    <select id="getHomePageList" resultType="application.ApiWs.vo.HomePageListResponseVo">
+        select CAHPT.ITEM_ID itemId,
+          CAHPT.HOMEPAGE_URL homePage
+        from CUX_APP_HOME_PAGE_T CAHPT
+        where 1 = 1
+    </select>
+
+    <select id="getMessageAdListByMessageId" parameterType="java.lang.String" resultType="application.ApiWs.vo.ItemAdVo">
+        select caiaat.ITEM_ID itemId,
+          caiaat.PIC_URL picUrl
+        from CUX_APP_ITEM_AD_ATTIBUTE_T caiaat
+        where 1 = 1
+        and caiaat.MESSAGE_ID = #{messageId}
+    </select>
+
+    <select id="getUserCollectionListCount" parameterType="application.ApiWs.vo.UserCollectionRequestVo" resultType="int">
+        select count(1)
+        from CUX_APP_USER_ITEM_COLLECTION_T cauict
+        where 1 = 1
+        and cauict.USER_ID = #{userId}
+        and cauict.STATUS = 'Y'
+    </select>
+
+    <select id="getUserCollectionList" parameterType="application.ApiWs.vo.UserCollectionRequestVo" resultType="application.ApiWs.vo.CollectionVo">
+        select res.itemId,
+            res.itemName,
+            res.itemPic,
+            res.itemPrice,
+            res.collectionId
+        from (select src.*,
+                    rownum rn
+                from  (select caiat.ITEM_ID itemId,
+                            caiat.ITEM_NAME itemName,
+                            caiat.ITEM_THUMBNAIL itemPic,
+                            caiat.PRICE_ORI itemPrice,
+                            cauict.ID collectionId
+                        from CUX_APP_USER_ITEM_COLLECTION_T cauict,CUX_APP_ITEM_ATTRIBUTE_T caiat
+                        where 1 = 1
+                        and cauict.ITEM_ID = caiat.ITEM_ID
+                        and cauict.ITEM_SN = caiat.ITEM_SN
+                        and cauict.STATUS = 'Y'
+                        and cauict.USER_ID = #{userId}
+                        order by cauict.CREATEDDATE desc ) src
+                where rownum &lt;= ${pageSize} * ${pageNo}) res
+        where res.rn > ${pageSize} * (${pageNo} - 1)
+    </select>
+
+    <insert id="getUserCollectionAdd" parameterType="application.ApiWs.vo.CollectionOperationRequestVo">
+        insert into cux_app_user_item_collection_t(ID, CREATEDDATE, LASTMODIFIEDDATE, CREATEDBY, LASTMODIFIEDBY, ITEM_ID, ITEM_SN, USER_ID,STATUS) values
+        (GET_PRIMARY_ID('CUX_APP_USER_ITEM_COLLECTION_T'),sysdate,sysdate,#{userId},#{userId},#{itemId},(select sn from product where id = #{itemId}),#{userId},'Y')
+    </insert>
+
+    <update id="getUserCollectionUpdate" parameterType="application.ApiWs.vo.CollectionUpdateRequestVo">
+        update cux_app_user_item_collection_t
+        set LASTMODIFIEDDATE = sysdate,
+            LASTMODIFIEDBY = #{userId},
+            STATUS = 'N'
+        where ID = #{collectionId}
+    </update>
+
+    <delete id="getShoppingCartItemDelete" parameterType="application.ApiWs.vo.ShoppingCartItemVo">
+        delete from CUX_APP_SHOPPING_CART_ITEM_T where ID = #{shoppingItemId}
+    </delete>
+
+    <select id="getShippingCartExist" parameterType="application.ApiWs.vo.ShoppingCartAddRequestVo" resultType="int">
+        select count(1)
+        from CUX_APP_SHOPPING_CART_NEW_T cat
+        where 1 = 1
+        and cat.STORE_ID = #{storeId}
+        and cat.ITEM_ID = #{itemId}
+    </select>
+
+    <select id="getShoppingCartId" parameterType="application.ApiWs.vo.ShoppingCartAddRequestVo" resultType="java.lang.String">
+        select cat.ID
+        from CUX_APP_SHOPPING_CART_T cat
+        where 1 = 1
+        and cat.STORE_ID = #{storeId}
+        and cat.SHOPPING_DATE = to_date(#{shoppingDate},'yyyy-MM-dd')
+    </select>
+
+    <delete id="getShoppingCartDelete" parameterType="java.lang.String">
+        delete from CUX_APP_SHOPPING_CART_NEW_T
+        where ID = #{shoppingCartId}
+    </delete>
+
+    <update id="getShoppingCartModified" parameterType="application.ApiWs.vo.ShoppingCartModifiedRequestVo">
+        update CUX_APP_SHOPPING_CART_NEW_T casct
+        set casct.lastmodifieddate = sysdate,
+        casct.lastmodifiedby = #{userId},
+        casct.item_quantity = #{itemQuantity}
+        where casct.ID = #{shoppingCartId}
+    </update>
+
+    <select id="getOrderCopyByPkg" parameterType="java.util.Map" statementType="CALLABLE">
+        {call CUX_PCMALL_PKG.GET_ORDER_COPY(
+          #{userId,jdbcType=VARCHAR,mode=IN},
+          #{orderId,jdbcType=VARCHAR,mode=IN},
+          #{code,jdbcType=VARCHAR,mode=OUT},
+          #{message,jdbcType=VARCHAR,mode=OUT})}
+    </select>
+
+    <select id="getUserItemCollectedFlag" parameterType="java.util.Map" resultType="int">
+        select count(1)
+        from CUX_APP_USER_ITEM_COLLECTION_T cauict
+        where 1 = 1
+        and cauict.ITEM_ID = #{itemId}
+        and cauict.USER_ID = #{userId}
+        and cauict.STATUS = 'Y'
+    </select>
+
+    <select id="getBatchId" resultType="java.lang.String">
+        select cux_app_shopping_cart_temp_s.nextval from dual
+    </select>
+
+    <insert id="insertIntoShoppingCartTemp" parameterType="java.util.Map">
+        insert into cux_app_shopping_cart_temp(id,shopping_cart_id,batch_id) values(GET_PRIMARY_ID('CUX_APP_SHOPPING_CART_TEMP_S'),#{shoppingCartId},#{batchId})
+    </insert>
+
+    <update id="getShoppingCartUpdate" parameterType="application.ApiWs.vo.ShoppingCartAddRequestVo">
+        update CUX_APP_SHOPPING_CART_NEW_T
+        set ITEM_QUANTITY = ITEM_QUANTITY + #{itemQuantity},
+        LASTMODIFIEDDATE = sysdate
+        where ITEM_ID = #{itemId}
+        and STORE_ID = #{storeId}
+    </update>
+
+</mapper>

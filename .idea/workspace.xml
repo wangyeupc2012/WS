@@ -1,0 +1,828 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="WS:war exploded" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="65e8c9e4-cd9f-46de-ad0e-4bf425b71c10" name="Default" comment="三元app商城">
+      <change afterPath="$PROJECT_DIR$/.idea" afterDir="true" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources" afterDir="true" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/756587a1-cc49-454e-8062-1ba275a049b8" afterDir="true" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/756587a1-cc49-454e-8062-1ba275a049b8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/756587a1-cc49-454e-8062-1ba275a049b8/storage_v2" afterDir="true" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/756587a1-cc49-454e-8062-1ba275a049b8/storage_v2/_src_" afterDir="true" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/756587a1-cc49-454e-8062-1ba275a049b8/storage_v2/_src_/schema" afterDir="true" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/756587a1-cc49-454e-8062-1ba275a049b8/storage_v2/_src_/schema/SYJD.IBInAA.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/756587a1-cc49-454e-8062-1ba275a049b8/storage_v2/_src_/schema/SYJD.IBInAA.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles" afterDir="true" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebContent/WEB-INF/css" afterDir="true" />
+      <change afterPath="$PROJECT_DIR$/WebContent/WEB-INF/css/default.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebContent/WEB-INF/js" afterDir="true" />
+      <change afterPath="$PROJECT_DIR$/WebContent/WEB-INF/js/functions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebContent/WEB-INF/js/garden.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebContent/WEB-INF/js/jquery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebContent/index1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/ApiWs/dao/ApiWsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/ApiWs/dao/ApiWsDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/ApiWs/mapper/ApiWsMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/ApiWs/mapper/ApiWsMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/ApiWs/service/ApiWsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/ApiWs/service/ApiWsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/ApiWs/util/AppApiUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/ApiWs/util/AppApiUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/ApiWs/vo/ItemVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/ApiWs/vo/ItemVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/ApiWs/vo/OrderItemVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/ApiWs/vo/OrderItemVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/ApiWs/vo/PushMessageVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/ApiWs/vo/PushMessageVo.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@122.115.53.96" type="feb32156:DbDataSourceImpl" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JRebelWorkspace">
+    <option name="jrebelEnabledAutocompile" value="true" />
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1440" />
+    <option name="height" value="827" />
+  </component>
+  <component name="ProjectId" id="1Xbg7wuem9BuX2iwzrC2qzPScWJ" />
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State />
+          <State>
+            <id>Abstraction issuesJava</id>
+          </State>
+          <State>
+            <id>Assignment issuesGroovy</id>
+          </State>
+          <State>
+            <id>Assignment issuesJava</id>
+          </State>
+          <State>
+            <id>Assignment issuesJavaScript</id>
+          </State>
+          <State>
+            <id>CSS</id>
+          </State>
+          <State>
+            <id>Class structureJava</id>
+          </State>
+          <State>
+            <id>Code style issuesJava</id>
+          </State>
+          <State>
+            <id>CodeSpring CoreSpring</id>
+          </State>
+          <State>
+            <id>CoffeeScript</id>
+          </State>
+          <State>
+            <id>Declaration redundancyJava</id>
+          </State>
+          <State>
+            <id>Error handlingJava</id>
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+          <State>
+            <id>GeneralCoffeeScript</id>
+          </State>
+          <State>
+            <id>GeneralJava</id>
+          </State>
+          <State>
+            <id>GeneralJavaScript</id>
+          </State>
+          <State>
+            <id>Groovy</id>
+          </State>
+          <State>
+            <id>InitializationJava</id>
+          </State>
+          <State>
+            <id>J2ME issuesJava</id>
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
+          <State>
+            <id>Java 5Java language level migration aidsJava</id>
+          </State>
+          <State>
+            <id>Java 8Java language level migration aidsJava</id>
+          </State>
+          <State>
+            <id>Java language level migration aidsJava</id>
+          </State>
+          <State>
+            <id>JavaScript</id>
+          </State>
+          <State>
+            <id>Kotlin</id>
+          </State>
+          <State>
+            <id>Naming conventionsJava</id>
+          </State>
+          <State>
+            <id>OSGi</id>
+          </State>
+          <State>
+            <id>PerformanceJava</id>
+          </State>
+          <State>
+            <id>Plugin DevKit</id>
+          </State>
+          <State>
+            <id>Potentially confusing code constructsGroovy</id>
+          </State>
+          <State>
+            <id>Potentially confusing code constructsJavaScript</id>
+          </State>
+          <State>
+            <id>Probable bugsCSS</id>
+          </State>
+          <State>
+            <id>Probable bugsKotlin</id>
+          </State>
+          <State>
+            <id>Reactor</id>
+          </State>
+          <State>
+            <id>SQL</id>
+          </State>
+          <State>
+            <id>SecurityJava</id>
+          </State>
+          <State>
+            <id>Serialization issuesJava</id>
+          </State>
+          <State>
+            <id>Spring</id>
+          </State>
+          <State>
+            <id>Spring CoreSpring</id>
+          </State>
+          <State>
+            <id>Spring DataSpring</id>
+          </State>
+          <State>
+            <id>UI Form</id>
+          </State>
+          <State>
+            <id>WebSocket</id>
+          </State>
+          <State>
+            <id>toString() issuesJava</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Duplicates</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="abbreviatePackageNames" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="oracle" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547778468190" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.37816092" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
+  </component>
+  <component name="RebelAgentSelection">
+    <selection>jr</selection>
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/WebContent" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="application.ApiWs.vo" />
+      <recent name="application.ApiWs.util" />
+      <recent name="framework.util" />
+      <recent name="framework.config" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/WebContent/WEB-INF" />
+      <recent name="$PROJECT_DIR$/WebContent/WEB-INF/lib" />
+      <recent name="$PROJECT_DIR$/src/application/trade" />
+      <recent name="$PROJECT_DIR$/resources" />
+      <recent name="$PROJECT_DIR$/src/application/ApiWs/util" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.test">
+    <configuration name="AppApiUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="application.ApiWs.util.AppApiUtil" />
+      <module name="WS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="application.ApiWs.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ArraySort" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="application.ApiWs.test.ArraySort" />
+      <module name="WS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="application.ApiWs.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MyTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="test.java.MyTest" />
+      <module name="WS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.java.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="test.java.test" />
+      <module name="WS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.java.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="commons-configuration-1.10.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/WebContent/WEB-INF/lib/commons-configuration-1.10.jar" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WS" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.30" ALTERNATIVE_JRE_ENABLED="false">
+      <deployment>
+        <artifact name="WS:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/WS" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_WS" />
+        <option name="HTTP_PORT" value="8086" />
+        <option name="JNDI_PORT" value="1069" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="53152" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="JRebel Debug">
+        <option name="DEBUG_PORT" value="53153" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="JRebel Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="JRebel Executor">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="WS:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.AppApiUtil" />
+      <item itemvalue="Application.ArraySort" />
+      <item itemvalue="Application.test" />
+      <item itemvalue="Application.MyTest" />
+      <item itemvalue="JAR Application.commons-configuration-1.10.jar" />
+      <item itemvalue="Tomcat Server.WS" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.test" />
+        <item itemvalue="Application.AppApiUtil" />
+        <item itemvalue="Application.MyTest" />
+        <item itemvalue="Application.ArraySort" />
+        <item itemvalue="JAR Application.commons-configuration-1.10.jar" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>$USER_HOME$/.subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="65e8c9e4-cd9f-46de-ad0e-4bf425b71c10" name="Default" comment="" />
+      <created>1531101810863</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1531101810863</updated>
+      <workItem from="1531101815236" duration="9640000" />
+      <workItem from="1531184568384" duration="92000" />
+      <workItem from="1531193055116" duration="2000" />
+      <workItem from="1532918439385" duration="3011000" />
+      <workItem from="1532931423854" duration="478000" />
+      <workItem from="1532932177095" duration="1438000" />
+      <workItem from="1533102425810" duration="613000" />
+      <workItem from="1533706730453" duration="6290000" />
+      <workItem from="1534215772378" duration="3475000" />
+      <workItem from="1534316655683" duration="1276000" />
+      <workItem from="1534381141239" duration="1834000" />
+      <workItem from="1534383760234" duration="2529000" />
+      <workItem from="1534388489306" duration="2484000" />
+      <workItem from="1534397635514" duration="2980000" />
+      <workItem from="1534400704943" duration="350000" />
+      <workItem from="1534401082281" duration="8312000" />
+      <workItem from="1535003147750" duration="1629000" />
+      <workItem from="1535614743438" duration="4782000" />
+      <workItem from="1535685463199" duration="967000" />
+      <workItem from="1535885663977" duration="2344000" />
+      <workItem from="1535889443509" duration="332000" />
+      <workItem from="1535889891428" duration="17029000" />
+      <workItem from="1535938466642" duration="217000" />
+      <workItem from="1535938730618" duration="6720000" />
+      <workItem from="1536027047549" duration="618000" />
+      <workItem from="1536030348535" duration="5547000" />
+      <workItem from="1536043761269" duration="5090000" />
+      <workItem from="1536127357594" duration="2730000" />
+      <workItem from="1536130322948" duration="2205000" />
+      <workItem from="1536134391435" duration="5688000" />
+      <workItem from="1536219036286" duration="2091000" />
+      <workItem from="1536292760602" duration="2562000" />
+      <workItem from="1536410638097" duration="18238000" />
+      <workItem from="1537155779606" duration="682000" />
+      <workItem from="1537168980327" duration="805000" />
+      <workItem from="1537237336196" duration="1267000" />
+      <workItem from="1537249598524" duration="705000" />
+      <workItem from="1537251124700" duration="3775000" />
+      <workItem from="1537323376412" duration="315000" />
+      <workItem from="1537325133620" duration="6964000" />
+      <workItem from="1537409914451" duration="5949000" />
+      <workItem from="1537420667699" duration="1984000" />
+      <workItem from="1537435733982" duration="3000" />
+      <workItem from="1537492788426" duration="3151000" />
+      <workItem from="1537773888889" duration="718000" />
+      <workItem from="1537843036766" duration="2989000" />
+      <workItem from="1539053014433" duration="643000" />
+      <workItem from="1539570039250" duration="23111000" />
+      <workItem from="1539743588708" duration="366000" />
+      <workItem from="1540174585729" duration="5577000" />
+      <workItem from="1540256769592" duration="1097000" />
+      <workItem from="1540349984641" duration="4140000" />
+      <workItem from="1540807691766" duration="11324000" />
+      <workItem from="1540949411242" duration="5603000" />
+      <workItem from="1540967209867" duration="259000" />
+      <workItem from="1541035722714" duration="401000" />
+      <workItem from="1541036164857" duration="11698000" />
+      <workItem from="1541117983916" duration="7517000" />
+      <workItem from="1541378417194" duration="7561000" />
+      <workItem from="1541684735696" duration="2158000" />
+      <workItem from="1542013222185" duration="691000" />
+      <workItem from="1547605652943" duration="3766000" />
+      <workItem from="1547692113341" duration="6394000" />
+      <workItem from="1547773841615" duration="2792000" />
+      <workItem from="1565530465701" duration="34000" />
+      <workItem from="1565530537958" duration="343000" />
+      <workItem from="1581320048576" duration="24000" />
+      <workItem from="1581347775287" duration="17000" />
+      <workItem from="1583841968069" duration="140000" />
+      <workItem from="1583842151258" duration="57981000" />
+      <workItem from="1592796535662" duration="79000" />
+      <workItem from="1592799848672" duration="1702000" />
+      <workItem from="1595915675944" duration="2000" />
+      <workItem from="1595916048126" duration="1330000" />
+      <workItem from="1596073103151" duration="4446000" />
+      <workItem from="1596186669022" duration="491000" />
+      <workItem from="1596415177988" duration="21453000" />
+      <workItem from="1596702208948" duration="3432000" />
+    </task>
+    <task id="LOCAL-00001" summary="三元app商城">
+      <created>1541395804037</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1541395804037</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="三元app商城" />
+    <option name="LAST_COMMIT_MESSAGE" value="三元app商城" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="533" y="155" key="#com.intellij.ide.util.MemberChooser" timestamp="1596074206279">
+      <screen x="0" y="23" width="1440" height="832" />
+    </state>
+    <state x="533" y="155" key="#com.intellij.ide.util.MemberChooser/0.23.1440.832@0.23.1440.832" timestamp="1596074206279" />
+    <state x="245" y="31" key="CommitChangelistDialog2" timestamp="1596783958700">
+      <screen x="0" y="23" width="1440" height="832" />
+    </state>
+    <state x="245" y="31" key="CommitChangelistDialog2/0.23.1440.832@0.23.1440.832" timestamp="1596783958700" />
+    <state width="522" height="466" key="DebuggerActiveHint" timestamp="1596609981293">
+      <screen x="0" y="23" width="1440" height="832" />
+    </state>
+    <state width="522" height="466" key="DebuggerActiveHint/0.23.1440.832@0.23.1440.832" timestamp="1596609981293" />
+    <state width="1398" height="160" key="GridCell.Tab.0.bottom" timestamp="1596784083584">
+      <screen x="0" y="23" width="1440" height="832" />
+    </state>
+    <state width="1398" height="160" key="GridCell.Tab.0.bottom/0.23.1440.832@0.23.1440.832" timestamp="1596784083584" />
+    <state width="1398" height="160" key="GridCell.Tab.0.center" timestamp="1596784083583">
+      <screen x="0" y="23" width="1440" height="832" />
+    </state>
+    <state width="1398" height="160" key="GridCell.Tab.0.center/0.23.1440.832@0.23.1440.832" timestamp="1596784083583" />
+    <state width="1398" height="160" key="GridCell.Tab.0.left" timestamp="1596784083582">
+      <screen x="0" y="23" width="1440" height="832" />
+    </state>
+    <state width="1398" height="160" key="GridCell.Tab.0.left/0.23.1440.832@0.23.1440.832" timestamp="1596784083582" />
+    <state width="1398" height="160" key="GridCell.Tab.0.right" timestamp="1596784083583">
+      <screen x="0" y="23" width="1440" height="832" />
+    </state>
+    <state width="1398" height="160" key="GridCell.Tab.0.right/0.23.1440.832@0.23.1440.832" timestamp="1596784083583" />
+    <state x="221" y="78" key="SettingsEditor" timestamp="1596786000222">
+      <screen x="0" y="23" width="1440" height="832" />
+    </state>
+    <state x="221" y="78" key="SettingsEditor/0.23.1440.832@0.23.1440.832" timestamp="1596786000222" />
+    <state x="547" y="337" key="com.intellij.ide.util.TipDialog" timestamp="1596702210415">
+      <screen x="0" y="23" width="1440" height="832" />
+    </state>
+    <state x="547" y="337" key="com.intellij.ide.util.TipDialog/0.23.1440.832@0.23.1440.832" timestamp="1596702210415" />
+    <state x="973" y="541" key="com.intellij.ide.util.TipDialog/0.23.2560.1372@0.23.2560.1372" timestamp="1592802984700" />
+    <state x="385" y="179" key="search.everywhere.popup" timestamp="1596074171921">
+      <screen x="0" y="23" width="1440" height="832" />
+    </state>
+    <state x="385" y="179" key="search.everywhere.popup/0.23.1440.832@0.23.1440.832" timestamp="1596074171921" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/application/ApiWs/util/SmsCodeUtil.java</url>
+          <line>20</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/application/AliPay/util/AlipaySubmit.java</url>
+          <line>63</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/application/AliPay/util/AlipaySubmit.java</url>
+          <line>80</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/application/ApiWs/service/ApiWsService.java</url>
+          <line>646</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/application/ApiWs/service/ApiWsService.java</url>
+          <line>673</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/application/ApiWs/controller/ApiWsController.java</url>
+          <line>463</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/test.java</url>
+          <line>844</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/test.java</url>
+          <line>774</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/test.java</url>
+          <line>756</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/test.java</url>
+          <line>635</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/test.java</url>
+          <line>456</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/test.java</url>
+          <line>350</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/test.java</url>
+          <line>301</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/test.java</url>
+          <line>240</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/test.java</url>
+          <line>179</line>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/test.java</url>
+          <line>92</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/WS$test.ic" NAME="test Coverage Results" MODIFIED="1583900362831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>test.java.*</FILTER>
+    </SUITE>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>WS:war</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.37816092" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Spring</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.37816092" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.37816092" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.37816092" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>WS</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.37816092" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: aopalliance:aopalliance:1.0</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.37816092" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
